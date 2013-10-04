@@ -1,8 +1,6 @@
 # Scotty-TLS
 
-Run your Scotty apps over TLS.
-
-You can test by generating a self-signed certificate here: http://www.akadia.com/services/ssh_test_certificate.html
+You can test by generating a self-signed certificate [here](http://www.akadia.com/services/ssh_test_certificate.html).
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
