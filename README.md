@@ -2,6 +2,10 @@
 
 You can test by generating a self-signed certificate [here](http://www.akadia.com/services/ssh_test_certificate.html).
 
+```text
+cabal update && cabal install scotty-tls
+```
+
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
 
