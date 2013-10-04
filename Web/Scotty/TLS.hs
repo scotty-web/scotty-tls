@@ -5,7 +5,6 @@ module Web.Scotty.TLS
       scottyTLS
        -- * Transformer version
     , scottyTTLS
-       -- * Re-export the Trans module
     , module Web.Scotty.Trans
     ) where
 
