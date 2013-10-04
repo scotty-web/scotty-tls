@@ -1,9 +1,12 @@
 {-# LANGUAGE RankNTypes #-}
 
 module Web.Scotty.TLS
-    ( scottyTLS -- * A method for running Scotty over TLS
-    , scottyTTLS -- * Transformer version
-    , module Web.Scotty.Trans -- * Re-export the Trans module
+    (  -- * A method for running Scotty over TLS
+      scottyTLS
+       -- * Transformer version
+    , scottyTTLS
+       -- * Re-export the Trans module
+    , module Web.Scotty.Trans
     ) where
 
 import           Control.Monad               ((<=<))
@@ -22,7 +25,9 @@ scottyTLS port key cert = runTLS
   (defaultTlsSettings { keyFile = key , certFile = cert })
   (defaultSettings { settingsPort = port }) <=< scottyApp
 
-scottyTTLS :: (Monad m, MonadIO n) => Port -> FilePath -> FilePath -> (forall a. m a -> n a) -> (m Response -> IO Response) -> ScottyT m () -> n ()
-scottyTTLS port key cert runM runToIO s = scottyAppT runM runToIO s >>= liftIO . runTLS (defaultTlsSettings { keyFile = key, certFile = cert })
-                                                                                        (defaultSettings { settingsPort = port })
+scottyTTLS :: (Monad m, MonadIO n) => Port -> FilePath -> FilePath ->
+              (forall a. m a -> n a) -> (m Response -> IO Response) -> ScottyT m () -> n ()
+scottyTTLS port key cert runM runToIO s = scottyAppT runM runToIO s >>= liftIO . runTLS
+                                              (defaultTlsSettings { keyFile = key, certFile = cert })
+                                              (defaultSettings { settingsPort = port })
 
