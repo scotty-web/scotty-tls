@@ -25,8 +25,8 @@ scottyTLS port key cert = runTLS
   (setPort port defaultSettings) <=< scottyApp
 
 scottyTTLS :: (Monad m, MonadIO n) => Port -> FilePath -> FilePath ->
-              (forall a. m a -> n a) -> (m Response -> IO Response) -> ScottyT t m () -> n ()
-scottyTTLS port key cert runM runToIO s = scottyAppT runM runToIO s >>= liftIO . runTLS
+              (m Response -> IO Response) -> ScottyT t m () -> n ()
+scottyTTLS port key cert runToIO s = scottyAppT runToIO s >>= liftIO . runTLS
                                               (defaultTlsSettings { keyFile = key, certFile = cert })
                                               (setPort port defaultSettings)
 
