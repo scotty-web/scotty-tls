@@ -1,5 +1,5 @@
 name:                scotty-tls
-version:             0.4.0
+version:             0.4.1
 synopsis:            TLS for Scotty
 description:         Run your Scotty apps over TLS
 homepage:            https://github.com/dmjio/scotty-tls.git
