@@ -4,6 +4,7 @@ module Web.Scotty.TLS
     (  -- * A method for running Scotty over TLS
       scottyTLS
        -- * Transformer version
+    , scottyTLSSettings
     , scottyTTLS
     , module Web.Scotty.Trans
     ) where
@@ -14,7 +15,7 @@ import           Network.Wai                 (Response)
 import           Network.Wai.Handler.Warp    (Port, defaultSettings,
                                               setPort)
 import           Network.Wai.Handler.WarpTLS (certFile, defaultTlsSettings,
-                                              keyFile, runTLS)
+                                              keyFile, runTLS, TLSSettings(..))
 import           Web.Scotty                  (scottyApp, ScottyM)
 import           Web.Scotty.Trans            (ScottyT, scottyAppT)
 
@@ -22,6 +23,11 @@ import           Web.Scotty.Trans            (ScottyT, scottyAppT)
 scottyTLS :: Port -> FilePath -> FilePath -> ScottyM () -> IO ()
 scottyTLS port key cert = runTLS
   (defaultTlsSettings { keyFile = key , certFile = cert })
+  (setPort port defaultSettings) <=< scottyApp
+
+scottyTLSSettings :: Port -> TLSSettings -> ScottyM () -> IO ()
+scottyTLSSettings port settings = runTLS
+  settings
   (setPort port defaultSettings) <=< scottyApp
 
 scottyTTLS :: (Monad m, MonadIO n) => Port -> FilePath -> FilePath ->
