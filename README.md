@@ -1,6 +1,16 @@
 # Scotty-TLS
 
-You can test by generating a self-signed certificate [here](http://www.akadia.com/services/ssh_test_certificate.html).
+You can test by generating a self-signed certificate like this:
+
+```sh
+openssl req -nodes -newkey rsa:2048 -keyout example.key -out example.csr \
+    -subj "/C=GB/ST=London/L=London/O=Acme Widgets/OU=IT Department/CN=example.com"
+openssl x509 -req -days 365 -in example.csr -signkey example.key -out example.crt
+```
+For more details on making certificates, see [this guide](http://www.akadia.com/services/ssh_test_certificate.html).
+
+
+Install and run with:
 
 ```text
 cabal update && cabal install scotty-tls
