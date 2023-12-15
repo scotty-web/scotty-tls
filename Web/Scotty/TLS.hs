@@ -14,7 +14,8 @@ import           Control.Monad.IO.Class      (MonadIO (liftIO))
 import           Network.Wai                 (Response)
 import           Network.Wai.Handler.Warp    (Port, defaultSettings,
                                               setPort)
-import           Network.Wai.Handler.WarpTLS (runTLS, tlsSettings, TLSSettings(..))
+import           Network.Wai.Handler.WarpTLS (defaultTlsSettings, tlsSettings,
+                                              runTLS, TLSSettings(..))
 import           Web.Scotty                  (scottyApp, ScottyM)
 import           Web.Scotty.Trans            (ScottyT, scottyAppT)
 
