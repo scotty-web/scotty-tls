@@ -16,7 +16,7 @@ import           Network.Wai.Handler.Warp    (Port, defaultSettings,
                                               setPort)
 import           Network.Wai.Handler.WarpTLS (tlsSettings,
                                               runTLS, TLSSettings(..))
-import           Web.Scotty                  (scottyApp, ScottyM)
+import           Web.Scotty                  (scottyApp, ScottyM, defaultOptions)
 import           Web.Scotty.Trans            (ScottyT, scottyAppT)
 
 -- | Run a Scotty application over TLS
@@ -30,9 +30,17 @@ scottyTLSSettings port settings = runTLS
   settings
   (setPort port defaultSettings) <=< scottyApp
 
-scottyTTLS :: (Monad m, MonadIO n) => Port -> FilePath -> FilePath ->
-              (m Response -> IO Response) -> ScottyT m () -> n ()
-scottyTTLS port key cert runToIO s = scottyAppT runToIO s >>= liftIO . runTLS
-                                              (tlsSettings cert key)
-                                              (setPort port defaultSettings)
-
+scottyTTLS
+  :: (Monad m, MonadIO n)
+  => Port
+  -> FilePath
+  -> FilePath
+  -> (m Response -> IO Response)
+  -> ScottyT m ()
+  -> n ()
+scottyTTLS port key cert runToIO s = do
+ app <- scottyAppT defaultOptions runToIO s
+ liftIO $ runTLS
+   (tlsSettings cert key)
+   (setPort port defaultSettings)
+   app

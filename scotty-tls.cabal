@@ -18,7 +18,7 @@ library
   exposed-modules:     Web.Scotty.TLS
   other-extensions:    RankNTypes
   build-depends:       base < 5,
-                       scotty >=0.20.0,
+                       scotty >=0.21.0,
                        warp >= 3.3,
                        warp-tls >= 3.4,
                        wai >= 3.2,
