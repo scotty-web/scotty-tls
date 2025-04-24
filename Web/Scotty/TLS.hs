@@ -14,7 +14,7 @@ import           Control.Monad.IO.Class      (MonadIO (liftIO))
 import           Network.Wai                 (Response)
 import           Network.Wai.Handler.Warp    (Port, defaultSettings,
                                               setPort)
-import           Network.Wai.Handler.WarpTLS (defaultTlsSettings, tlsSettings,
+import           Network.Wai.Handler.WarpTLS (tlsSettings,
                                               runTLS, TLSSettings(..))
 import           Web.Scotty                  (scottyApp, ScottyM)
 import           Web.Scotty.Trans            (ScottyT, scottyAppT)
@@ -31,7 +31,7 @@ scottyTLSSettings port settings = runTLS
   (setPort port defaultSettings) <=< scottyApp
 
 scottyTTLS :: (Monad m, MonadIO n) => Port -> FilePath -> FilePath ->
-              (m Response -> IO Response) -> ScottyT t m () -> n ()
+              (m Response -> IO Response) -> ScottyT m () -> n ()
 scottyTTLS port key cert runToIO s = scottyAppT runToIO s >>= liftIO . runTLS
                                               (tlsSettings cert key)
                                               (setPort port defaultSettings)
