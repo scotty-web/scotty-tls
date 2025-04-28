@@ -1,12 +1,12 @@
 name:                scotty-tls
-version:             0.5.0
+version:             0.6.0
 synopsis:            TLS for Scotty
 description:         Run your Scotty apps over TLS
 homepage:            https://github.com/dmjio/scotty-tls.git
 license:             BSD3
 license-file:        LICENSE
 author:              David Johnson
-maintainer:          djohnson.m@gmail.com
+maintainer:          code@dmj.io
 category:            Web
 build-type:          Simple
 cabal-version:       >=1.10
