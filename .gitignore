@@ -1,2 +1,7 @@
 .hsenv
 dist/
+dist-newstyle/
+*~
+*.hi
+*.o
+TAGS
